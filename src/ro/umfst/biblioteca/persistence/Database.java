@@ -11,7 +11,7 @@ public final class Database {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException | LinkageError ex) {
             throw new SQLException("Driverul SQLite nu este incarcat. Redeschide folderul proiect_2 "
-                + "in IntelliJ si ruleaza configuratia Biblioteca sau Porneste.bat.", ex);
+                + "in IntelliJ si ruleaza configuratia Biblioteca.", ex);
         }
         Path absolute = file.toAbsolutePath();
         Files.createDirectories(absolute.getParent());
