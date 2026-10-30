@@ -1,9 +1,6 @@
-build/
 out/
-tools/
 data/*.db
 data/*.db-*
-target/
 .idea/*
 !.idea/modules.xml
 !.idea/misc.xml
