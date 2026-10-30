@@ -3,18 +3,14 @@
 ## Pornire
 In IntelliJ: Open > folderul proiect_2. Asteapta indexarea, apoi alege Biblioteca
 din bara de sus si apasa Run. Sau deschide src/Main.java si ruleaza metoda main.
-JDK-ul configurat este temurin-17.
+Necesita JDK 17 sau mai nou, selectat in File > Project Structure > Project SDK.
 
-Pornire imediata fara IntelliJ: dublu click pe Porneste.bat.
-Biblioteca.jar este aplicatia compilata. Modificarile surselor se ruleaza din IntelliJ.
 
 ## Foldere
 - src: codul Java al proiectului.
 - lib: cele 3 biblioteci JAR necesare pentru SQLite; nu sunt arhive de test.
 - data: baza de date SQLite, salvata automat.
 - .idea si Biblioteca.iml: configuratia IntelliJ.
-Testele, JDK-ul portabil si vechile fisiere auxiliare sunt pastrate separat,
-in folderul proiect_2_suport de langa proiect, cu data/ora adaugate la nume.
 
 ## Functii
 Carti si reviste; adaugare, editare, cautare, filtre, imprumut/returnare,
