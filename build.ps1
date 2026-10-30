@@ -4,7 +4,17 @@ Set-Location -LiteralPath $PSScriptRoot
 $jdk = Join-Path $PSScriptRoot 'tools/jdk'
 $compiler = Join-Path $jdk 'bin/javac.exe'
 $java = Join-Path $jdk 'bin/java.exe'
-if (!(Test-Path -LiteralPath $compiler)) { throw 'Lipseste JDK portabil din tools/jdk.' }
+if (!(Test-Path -LiteralPath $compiler)) {
+    if ($env:JAVA_HOME -and (Test-Path -LiteralPath (Join-Path $env:JAVA_HOME 'bin/javac.exe'))) {
+        $compiler = Join-Path $env:JAVA_HOME 'bin/javac.exe'
+        $java = Join-Path $env:JAVA_HOME 'bin/java.exe'
+    } elseif (Get-Command javac -ErrorAction SilentlyContinue) {
+        $compiler = (Get-Command javac).Source
+        $java = Join-Path (Split-Path -Parent $compiler) 'java.exe'
+    } else {
+        throw 'Configureaza un JDK 17+ in JAVA_HOME sau tools/jdk. Pentru IntelliJ vezi INTELLIJ.md.'
+    }
+}
 New-Item -ItemType Directory -Force -Path 'build/classes' | Out-Null
 $sources = @(Get-ChildItem -LiteralPath 'src/main/java' -Filter '*.java' -Recurse | ForEach-Object FullName)
 if ($Test) { $sources += @(Get-ChildItem -LiteralPath 'src/test/java' -Filter '*.java' -Recurse | ForEach-Object FullName) }
