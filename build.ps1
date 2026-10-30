@@ -16,14 +16,16 @@ if (!(Test-Path -LiteralPath $compiler)) {
     }
 }
 New-Item -ItemType Directory -Force -Path 'build/classes' | Out-Null
-$sources = @(Get-ChildItem -LiteralPath 'src/main/java' -Filter '*.java' -Recurse | ForEach-Object FullName)
-if ($Test) { $sources += @(Get-ChildItem -LiteralPath 'src/test/java' -Filter '*.java' -Recurse | ForEach-Object FullName) }
+$sources = @(Get-ChildItem -LiteralPath 'src' -Filter '*.java' -Recurse | ForEach-Object FullName)
+if ($Test) { $sources += @(Get-ChildItem -LiteralPath 'tests' -Filter '*.java' -Recurse | ForEach-Object FullName) }
 & $compiler -encoding UTF-8 -d 'build/classes' -cp 'lib/*' @sources
 if ($LASTEXITCODE -ne 0) { throw 'Compilarea a esuat.' }
 if ($Test) {
     & $java -cp 'build/classes;lib/*' ro.umfst.biblioteca.IntegrationTest
     if ($LASTEXITCODE -ne 0) { throw 'Testele au esuat.' }
+    & $java -cp 'build/classes;lib/*' MainRunTest
+    if ($LASTEXITCODE -ne 0) { throw 'Testul pornirii Main a esuat.' }
 } else {
-    & $java -cp 'build/classes;lib/*' ro.umfst.biblioteca.App
+    & $java -cp 'build/classes;lib/*' Main
     if ($LASTEXITCODE -ne 0) { throw 'Aplicatia s-a inchis cu eroare.' }
 }

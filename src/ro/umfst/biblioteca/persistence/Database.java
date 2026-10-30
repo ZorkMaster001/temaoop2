@@ -6,6 +6,13 @@ import java.sql.*;
 public final class Database {
     private final String url;
     public Database(Path file) throws java.io.IOException, SQLException {
+        // Incarcam explicit driverul JDBC care este inclus in folderul lib.
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException | LinkageError ex) {
+            throw new SQLException("Driverul SQLite nu este incarcat. Redeschide folderul proiect_2 "
+                + "in IntelliJ si ruleaza configuratia Biblioteca sau Porneste.bat.", ex);
+        }
         Path absolute = file.toAbsolutePath();
         Files.createDirectories(absolute.getParent());
         url = "jdbc:sqlite:" + absolute;

@@ -1,7 +1,14 @@
 build/
+out/
 tools/
 data/*.db
 data/*.db-*
 target/
-.idea/
+.idea/*
+!.idea/modules.xml
+!.idea/misc.xml
+!.idea/runConfigurations/
+.idea/runConfigurations/*
+!.idea/runConfigurations/Biblioteca.xml
 *.iml
+!Biblioteca.iml
